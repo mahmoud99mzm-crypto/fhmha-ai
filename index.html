@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fhmha-ai | مساعدك الذكي بأسلوب Gemini</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <div class="gemini-app">
+    <!-- الشريط العلوي -->
+    <header class="top-bar">
+      <div class="brand">
+        <span class="gemini-sparkle">✦</span>
+        <div class="brand-text">
+          <h1>fhmha-ai</h1>
+          <span class="badge">مساعد دراسي وعام</span>
+        </div>
+      </div>
+
+      <div id="auth-area" class="auth-area">
+        <button id="header-google-btn" type="button" class="pill-login-btn">
+          <svg class="g-icon-sm" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.54-1.14 2.85-2.4 3.72v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.21z"/>
+            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.11-6.72-4.96H1.29v3.14C3.26 21.3 7.31 24 12 24z"/>
+            <path fill="#FBBC05" d="M5.28 14.24c-.24-.72-.38-1.49-.38-2.24s.14-1.52.38-2.24V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.99-3.14z"/>
+            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.99 3.14c.95-2.85 3.6-4.96 6.72-4.96z"/>
+          </svg>
+          <span>تسجيل الدخول</span>
+        </button>
+
+        <div id="user-profile" class="user-profile hidden">
+          <img id="user-avatar" src="" alt="صورة المستخدم" class="user-avatar" />
+          <span id="user-name" class="user-name"></span>
+          <button id="logout-btn" type="button" class="logout-btn" title="تسجيل الخروج">خروج</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- منطقة المحادثة -->
+    <main id="chat-container" class="chat-container">
+      <div id="welcome-hero" class="welcome-hero">
+        <div class="hero-orb">✦</div>
+        <h2 class="hero-title">أهلاً بك في <span class="gradient-text">fhmha-ai</span></h2>
+        <p class="hero-subtitle">
+          اسألني في أي مسألة دراسية أو أي سؤال في العالم — أفكر ثانية، أشرح لك ببساطة، وأسألك: هل فهمت ولا أعيدها تاني؟
+        </p>
+
+        <div class="suggestions-grid">
+          <button type="button" class="suggestion-card" data-prompt="اشرح لي نظرية فيثاغورس مع مثال عملي بسيط">
+            <span class="s-icon">📐</span>
+            <span>اشرح نظرية فيثاغورس مع مثال بسيط</span>
+          </button>
+          <button type="button" class="suggestion-card" data-prompt="ما الفرق بين الـ RAM والـ ROM بأسلوب سهل؟">
+            <span class="s-icon">💻</span>
+            <span>الفرق بين الـ RAM والـ ROM ببساطة</span>
+          </button>
+          <button type="button" class="suggestion-card" data-prompt="لماذا السماء زرقاء في النهار؟">
+            <span class="s-icon">🌌</span>
+            <span>لماذا تبدو السماء زرقاء في النهار؟</span>
+          </button>
+          <button type="button" class="suggestion-card" data-prompt="كيف أذاكر المواد الصعبة بتركيز بدون تشتت؟">
+            <span class="s-icon">🎯</span>
+            <span>كيف أذاكر المواد الصعبة بتركيز؟</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="messages-list" class="messages-list"></div>
+    </main>
+
+    <!-- صندوق الإدخال السفلي -->
+    <footer class="input-dock">
+      <form id="chat-form" class="composer-box">
+        <textarea
+          id="user-input"
+          rows="1"
+          placeholder="اسأل fhmha-ai عن أي مسألة أو فكرة..."
+          autocomplete="off"
+        ></textarea>
+        <button type="submit" id="send-btn" class="send-btn" aria-label="إرسال السؤال">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </form>
+      <p class="disclaimer">
+        قد يعرض fhmha-ai معلومات تحتاج لمراجعة — يختتم كل شرح بسؤال: «هل فهمت ولا أعيدها تاني؟»
+      </p>
+    </footer>
+  </div>
+
+  <!-- نافذة تسجيل الدخول بحساب جوجل عند كتابة سؤال -->
+  <div id="google-auth-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <button id="close-modal-btn" type="button" class="modal-close" aria-label="إغلاق">✕</button>
+      <div class="modal-badge">✦ fhmha-ai</div>
+      <h3 id="modal-title" class="modal-title">سجّل دخولك بحساب جوجل للمتابعة</h3>
+      <p class="modal-desc">
+        كتبت سؤالك وجاهز للإرسال! سجّل دخولك بحسابك في Google لكي يبدأ <strong>fhmha-ai</strong> بالتفكير ثانية وشرح الإجابة لك.
+      </p>
+
+      <div class="pending-preview">
+        <span class="preview-label">سؤالك المعلق:</span>
+        <p id="pending-question-text" class="preview-text"></p>
+      </div>
+
+      <!-- زر Google الرسمي -->
+      <div id="gsi-button-container" class="gsi-container"></div>
+
+      <!-- زر بديل سريع للتجربة المحلية إذا لم يتم ضبط Google Client ID بعد -->
+      <button id="demo-google-login-btn" type="button" class="demo-google-btn">
+        <svg class="g-icon-sm" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.54-1.14 2.85-2.4 3.72v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.21z"/>
+          <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.11-6.72-4.96H1.29v3.14C3.26 21.3 7.31 24 12 24z"/>
+          <path fill="#FBBC05" d="M5.28 14.24c-.24-.72-.38-1.49-.38-2.24s.14-1.52.38-2.24V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.99-3.14z"/>
+          <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.99 3.14c.95-2.85 3.6-4.96 6.72-4.96z"/>
+        </svg>
+        <span>متابعة بحساب Google (وضع التجربة السريع)</span>
+      </button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
