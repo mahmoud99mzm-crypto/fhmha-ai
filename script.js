@@ -1,11 +1,8 @@
-// ==========================================
-// إعدادات fhmha-ai
-// ==========================================
-// 1. ضع مفتاح Gemini API الخاص بك هنا
-const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY";
 
-// 2. (اختياري) ضع Google OAuth Client ID الخاص بك لتسجيل الدخول الحقيقي من Google Cloud Console
-const GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com";
+const GEMINI_API_KEY = "";
+
+
+const GOOGLE_CLIENT_ID = "256842256431-o81iququfj45de6h53l2qrjh4edor50r.apps.googleusercontent.com";
 
 const SYSTEM_PROMPT = `
 أنت مساعد ذكي ودود، دقيق، وسهل الشرح، ومهمتك مساعدة المستخدم في الإجابة عن أي سؤال يطرحه؛ سواء كان مسألة دراسية أو سؤالًا عامًا في أي مجال في الحياة.
